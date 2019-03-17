@@ -12,3 +12,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+input{
+  display: inline-block;
+  margin-left: 5px;
+  border: 1px inset grey;
+  font: inherit;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+input:focus{
+  border: thin dotted grey;
+  border-bottom: 2px solid black;
+}
+
+button{
+  background-color: #FFDD54;
+  border-radius: 5px;
+  color: #2020FB;
+  border: none;
+  padding: 5px;
+  font-weight: bold; 
+}
+
+button:hover{
+  transition: transform 0.1s linear;
+  transform: scale(1.1);
+}
+
+#btn-go{
+  margin-left: 1em;
+  font-size: 16px;
+} 
+
+#pokeball-img{
+  width: 20px;
+  height: 20px; 
+  position: relative;
+  top: 5px;
+  left: 5px;
+}
