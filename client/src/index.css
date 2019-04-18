@@ -1,4 +1,5 @@
 body {
+  background-color: #EEE;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -14,6 +15,7 @@ code {
 }
 
 input{
+  background-color: inherit;
   display: inline-block;
   margin-left: 5px;
   border: 1px inset grey;
@@ -40,6 +42,34 @@ button{
 button:hover{
   transition: transform 0.1s linear;
   transform: scale(1.1);
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-column{
+  flex-direction: column;
+} 
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+.content-center{
+  justify-content: center;
+}
+
+.content-space-between{
+  justify-content: space-between;
+}
+
+.capital{
+  text-transform: capitalize;
+}
+
+.center-text{
+  text-align: center;
 }
 
 #btn-go{
