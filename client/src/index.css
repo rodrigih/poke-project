@@ -42,7 +42,7 @@ button{
 button:hover{
   transition: transform 0.1s linear;
   transform: scale(1.1);
-}
+} 
 
 .flex{
   display: flex;

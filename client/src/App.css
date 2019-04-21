@@ -1,3 +1,25 @@
+nav ul{
+  list-style: none;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+nav li{
+  display: inline-block;
+}
+
+nav li:hover{
+  background-color: #EEE;
+  color: #E74C3C;
+}
+
+nav a{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 0.5em 1em;
+}
+
 .App {
   text-align: center;
 } 
