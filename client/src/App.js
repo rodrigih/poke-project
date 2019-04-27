@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import './App.css'; 
 
+import Home from './Home.js'; 
+
 /* Dummy components */ 
-function Home(){ return <h2>Home Page</h2>; }
 
 function Pokemon() {
   return (
@@ -89,9 +90,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <h1> Pok&eacute;mon Info App </h1>
-            <p> Type in a pok&eacute;mon name to get info for it.  </p>
-
+            <h1> Pok&eacute;mon Info App </h1> 
             {this.renderLinks()} 
           </header> 
 
