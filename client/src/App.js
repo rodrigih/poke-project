@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './App.css'; 
 
 /* Dummy components */ 
+function Home(){ return <h2>Home Page</h2>; }
+
 function Pokemon() {
   return (
     <p>
@@ -18,14 +20,24 @@ function Pokemon() {
 function Moves() { return <h2> Moves page </h2>; } 
 function Items() { return <h2> Items page </h2>; } 
 function Berries() { return <h2> Berries page </h2>; }
-function NoMatch() { return <h2> Page does not exist </h2>; }
-
+function NoMatch() { return <h2> Page does not exist </h2>; } 
 
 class App extends Component { 
+  
   state = {
-    data: null
-  };
+    data: null,
+    links: [
+      { url: "/", text: "Home", idStr: "home-link" },
+      { url: "/Pokemon", text: "Pokemon", idStr: "pokemon-link" },
+      { url: "/Moves", text: "Moves", idStr: "moves-link" },
+      { url: "/Items", text: "Items", idStr: "items-link"},
+      { url: "/Berries", text: "Berries", idStr: "berries-link" }
+    ],
 
+    activeLink: "home-link"
+  }; 
+
+  /* Life Cycle functions */ 
   componentDidMount(){
     this.callBackendAPI()
       .then( res => this.setState({ data: res.express }) )
@@ -43,6 +55,35 @@ class App extends Component {
     return body;
   };
 
+  /* Event handlers */
+  handleLinkClick(e){
+    e.preventDefault();
+    var idStr = e.currentTarget.id;
+    this.setState({activeLink: idStr});
+  } 
+
+  /* Helper functions */
+  renderLinks(){
+    var linkArr = this.state.links.slice();
+
+    var links = linkArr.map((curr) => {
+      var idStr = curr.idStr;
+      var classStr = ( (idStr === this.state.activeLink) ? "active-link": ""); 
+
+      return (
+        <li className={classStr}
+            id={curr.idStr}
+            key={curr.idStr}
+            onClick={(e) => this.handleLinkClick(e)}>
+
+          <Link to={curr.url}> {curr.text} </Link>
+        </li>
+      );
+    });
+
+    return ( <nav> <ul> {links} </ul> </nav>);
+  } 
+
   render() {
     return (
       <Router>
@@ -51,18 +92,12 @@ class App extends Component {
             <h1> Pok&eacute;mon Info App </h1>
             <p> Type in a pok&eacute;mon name to get info for it.  </p>
 
-            <nav>
-              <ul>
-                <li> <Link to="/"> Pokemon </Link> </li>
-                <li> <Link to="/Moves"> Moves </Link> </li>
-                <li> <Link to="/Items"> Items </Link> </li>
-                <li> <Link to="/Berries"> Berries </Link> </li>
-              </ul>
-            </nav> 
+            {this.renderLinks()} 
           </header> 
 
           <Switch>
-            <Route path="/" exact component={Pokemon} />
+            <Route path="/" exact component={Home} />
+            <Route path="/Pokemon" exact component={Pokemon} />
             <Route path="/Moves" component={Moves} />
             <Route path="/Items" component={Items} />
             <Route path="/Berries" component={Berries} />

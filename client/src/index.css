@@ -21,7 +21,7 @@ input{
   border: 1px inset grey;
   font: inherit;
   text-align: center;
-  border: none;
+  border: thin solid rgba(0,0,0,0); /* Transparent */
   border-bottom: 2px solid black;
 }
 

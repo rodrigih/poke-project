@@ -8,7 +8,7 @@ nav li{
   display: inline-block;
 }
 
-nav li:hover{
+nav li:hover, .active-link{
   background-color: #EEE;
   color: #E74C3C;
 }
