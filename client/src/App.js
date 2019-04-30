@@ -4,19 +4,9 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './App.css'; 
 
 import Home from './Home.js'; 
+import Pokemon from './Pokemon.js'; 
 
 /* Dummy components */ 
-
-function Pokemon() {
-  return (
-    <p>
-      Go
-      <img id="pokeball-img" alt="" src={require("./pokeball.png")} />
-      <input id="pokemon-input" type="text" name="pokemon" placeholder="Bulbasaur"></input>,
-      <button id="btn-go"> I Choose You! </button>
-    </p>
-  ); 
-} 
 
 function Moves() { return <h2> Moves page </h2>; } 
 function Items() { return <h2> Items page </h2>; } 
@@ -37,24 +27,6 @@ class App extends Component {
 
     activeLink: "home-link"
   }; 
-
-  /* Life Cycle functions */ 
-  componentDidMount(){
-    this.callBackendAPI()
-      .then( res => this.setState({ data: res.express }) )
-      .catch( err => console.log(err) );
-  }
-
-  callBackendAPI = async() => {
-    const response = await fetch('express_backend');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-
-    return body;
-  };
 
   /* Event handlers */
   handleLinkClick(e){
@@ -96,7 +68,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/Pokemon" exact component={Pokemon} />
+            <Route path="/Pokemon" component={Pokemon} />
             <Route path="/Moves" component={Moves} />
             <Route path="/Items" component={Items} />
             <Route path="/Berries" component={Berries} />
