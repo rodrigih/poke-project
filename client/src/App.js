@@ -7,7 +7,6 @@ import Home from './Home.js';
 import Pokemon from './Pokemon.js'; 
 
 /* Dummy components */ 
-
 function Moves() { return <h2> Moves page </h2>; } 
 function Items() { return <h2> Items page </h2>; } 
 function Berries() { return <h2> Berries page </h2>; }
