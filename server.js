@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const PokeAPI = require('pokedex-promise-v2');
-const Pokedex = new PokeAPI(); 
+const Pokedex = new PokeAPI();
 
 // Static file declaration
 app.use(express.static(path.join(__dirname, 'build')));
@@ -19,19 +19,18 @@ app.get('/getPokemon/:name', (req, res) => {
   var name = req.params.name;
   var result = Pokedex.getPokemonByName(name)
     .then(function(response){
-      console.log(`GET /pokemon/${name}`); 
-      res.send(response); 
+      console.log(`GET /pokemon/${name}`);
+      res.send(response);
     })
     .catch(function(){
-      res.send(null); 
-      console.log(`ERROR AT: GET /getPokemon/${name}`); 
-      console.log(`\t Name: ${name}`); 
-    }) 
+      res.send(null);
+      console.log(`ERROR AT: GET /getPokemon/${name}`);
+      console.log(`\t Name: ${name}`);
+    })
 });
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
-
 });
 
 // console.log that your server is up and running

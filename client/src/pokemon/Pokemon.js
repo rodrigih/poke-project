@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { Route, withRouter } from 'react-router-dom';
 
-import PokemonInfo from './PokemonInfo.js'; 
+import PokemonInfo from './PokemonInfo'; 
 
 class Pokemon extends Component { 
 
@@ -45,7 +45,7 @@ class Pokemon extends Component {
 
         <form style={{marginTop: "1em"}} onSubmit={this.handleSubmit}>
           <label htmlFor="pokemon-input"> Go </label> 
-          <img id="pokeball-img" alt="" src={require("./pokeball.png")} />
+          <img id="pokeball-img" alt="" src={require("../pokeball.png")} />
           <input id="pokemon-input"
                  type="text"
                  name="pokemon"
