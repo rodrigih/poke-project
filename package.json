@@ -74,6 +74,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "prettier": "1.17.0",
     "react-table": "^6.9.2"
   },
   "jest": {

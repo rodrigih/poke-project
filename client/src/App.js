@@ -1,20 +1,29 @@
-import React, { Component } from 'react'; 
-import { Route, Switch } from 'react-router-dom';
+import React, {Component} from "react";
+import {Route, Switch} from "react-router-dom";
 
-import './App.css'; 
+import "./App.css";
 
-import Home from './Home'; 
-import Pokemon from './pokemon/Pokemon'; 
+import Home from "./Home";
+import Pokemon from "./pokemon/Pokemon";
 import NavLinks from "./components/nav-links";
 
-/* Dummy components */ 
-function Moves() { return <h2> Moves page </h2>; } 
-function Items() { return <h2> Items page </h2>; } 
-function Berries() { return <h2> Berries page </h2>; }
-function NoMatch() { return <h2> Page does not exist </h2>; } 
+/* Dummy components */
 
-class App extends Component { 
-  constructor(props){
+function Moves() {
+  return <h2> Moves page </h2>;
+}
+function Items() {
+  return <h2> Items page </h2>;
+}
+function Berries() {
+  return <h2> Berries page </h2>;
+}
+function NoMatch() {
+  return <h2> Page does not exist </h2>;
+}
+
+class App extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       data: null
@@ -25,9 +34,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1> Pok&eacute;mon Info App </h1> 
+          <h1> Pok&eacute;mon Info App </h1>
           <Route component={NavLinks} />
-        </header> 
+        </header>
 
         <Switch>
           <Route path="/" exact component={Home} />
@@ -36,11 +45,25 @@ class App extends Component {
           <Route path="/Items" component={Items} />
           <Route path="/Berries" component={Berries} />
           <Route component={NoMatch} />
-        </Switch> 
+        </Switch>
 
         <footer className="App-footer">
-          Created using <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">React</a>.
-          Uses the <a href="https://pokeapi.co" target="_blank" rel="noopener noreferrer">Pok&eacute;API.</a>
+          Created using{" "}
+          <a
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            React
+          </a>
+          . Uses the{" "}
+          <a
+            href="https://pokeapi.co"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Pok&eacute;API.
+          </a>
         </footer>
       </div>
     );
