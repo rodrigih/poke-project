@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getPokemonByName } from "../helpers/pokemon-api";
+import { getPokemonByName } from "../../helpers/pokemon-api";
 import styled from "@emotion/styled";
 
 const ULInline = styled.ul`
@@ -19,7 +19,7 @@ class PokemonInfo extends Component {
   }
 
   handleGettingData(data) {
-    this.setState({ data });
+    this.setState({ data: data });
   }
 
   handleError(err) {
@@ -40,9 +40,7 @@ class PokemonInfo extends Component {
     const previousName = prevProps.match.params.pokemon;
     const {
       match: {
-        params: {
-          pokemon
-        }
+        params: { pokemon }
       }
     } = this.props;
     if (previousName !== pokemon && pokemon.length) {

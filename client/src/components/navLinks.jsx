@@ -22,14 +22,18 @@ class NavLinks extends Component {
   }
 
   renderLinks() {
-    return LINKS.map(({ url, text }, i) => {
+    return LINKS.map(({ url, text, idStr }, i) => {
       const {
         location: { pathname }
       } = this.props;
       const shouldHighlightLink =
         pathname === url || (i > 0 && pathname.includes(url));
       return (
-        <Link className={cx({ "active-link": shouldHighlightLink })} to={url}>
+        <Link
+          className={cx({ "active-link": shouldHighlightLink })}
+          to={url}
+          key={idStr}
+        >
           {text}
         </Link>
       );

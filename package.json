@@ -74,6 +74,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "husky": "^2.2.0",
+    "prettier": "1.17.0",
+    "pretty-quick": "^1.10.0",
     "react-table": "^6.9.2"
   },
   "jest": {
@@ -125,5 +128,10 @@
     "presets": [
       "react-app"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
