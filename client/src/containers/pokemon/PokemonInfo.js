@@ -1,6 +1,11 @@
-import React, { Component } from "react";
-import { getPokemonByName } from "../../helpers/pokemon-api";
+import React, {Component} from "react";
+import {
+  getPokemonByName,
+  getPokemonSpeciesByName
+} from "../../helpers/pokemon-api";
 import styled from "@emotion/styled";
+import PokemonHeader from "./PokemonHeader";
+import {capitalize} from "../../helpers/utilities.js";
 
 const ULInline = styled.ul`
   display: inline-block;
@@ -11,15 +16,22 @@ class PokemonInfo extends Component {
     super(props);
 
     this.state = {
-      data: null
+      pokemonData: null,
+      speciesData: null
     };
 
-    this.handleGettingData = this.handleGettingData.bind(this);
+    this.handleGettingPokemonData = this.handleGettingPokemonData.bind(this);
+    this.handleGettingSpeciesData = this.handleGettingSpeciesData.bind(this);
     this.handleError = this.handleError.bind(this);
   }
 
-  handleGettingData(data) {
-    this.setState({ data: data });
+  handleGettingPokemonData(data) {
+    this.setState({pokemonData: data});
+  }
+
+  handleGettingSpeciesData(data) {
+    console.log(`FOOBAR: ${data}`);
+    this.setState({speciesData: data});
   }
 
   handleError(err) {
@@ -28,10 +40,14 @@ class PokemonInfo extends Component {
 
   /* Life Cycle functions */
   componentDidMount() {
-    const { match: params } = this.props;
+    const {match: params} = this.props;
     if (params.pokemon) {
       getPokemonByName(params.pokemon)
-        .then(this.handleGettingData)
+        .then(this.handleGettingPokemonData)
+        .catch(this.handleError);
+
+      getPokemonSpeciesByName(params.pokemon)
+        .then(this.handleGettingSpeciesData)
         .catch(this.handleError);
     }
   }
@@ -40,24 +56,45 @@ class PokemonInfo extends Component {
     const previousName = prevProps.match.params.pokemon;
     const {
       match: {
-        params: { pokemon }
+        params: {pokemon}
       }
     } = this.props;
+
     if (previousName !== pokemon && pokemon.length) {
       getPokemonByName(pokemon)
-        .then(this.handleGettingData)
+        .then(this.handleGettingPokemonData)
+        .catch(this.handleError);
+
+      getPokemonSpeciesByName(pokemon)
+        .then(this.handleGettingSpeciesData)
         .catch(this.handleError);
     }
   }
 
-  render() {
-    const pokemonData = this.state.data;
+  /* Helper functions */
+  getEnglish(dataArr) {
+    var englishObj = dataArr.find(curr => curr.language.name === "en");
 
-    if (!pokemonData) {
+    return englishObj;
+  }
+
+  render() {
+    const {pokemonData, speciesData} = this.state;
+
+    if (!pokemonData || !speciesData) {
       return <div />;
     }
 
-    const name = pokemonData.species.name;
+    // pokemonData destructuring
+    const {
+      species: {name},
+      sprites: {front_default}
+    } = pokemonData;
+
+    // speciesData destructuring
+    const {genera} = speciesData;
+
+    const genus = this.getEnglish(genera).genus;
 
     var displayAbilities = function(obj) {
       if (!obj) {
@@ -74,9 +111,16 @@ class PokemonInfo extends Component {
 
     return (
       <div>
-        <p>You searched for {name}</p>
-        <p>Here are it's abilities:</p>
-        {displayAbilities(pokemonData)}
+        <PokemonHeader
+          spriteUrl={front_default}
+          pokemonName={capitalize(name)}
+          pokemonGenus={genus}
+        />
+
+        <div>
+          <p>Abilities:</p>
+          {displayAbilities(pokemonData)}
+        </div>
       </div>
     );
   }

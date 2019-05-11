@@ -19,12 +19,26 @@ app.get("/getPokemon/:name", (req, res) => {
   var name = req.params.name;
   var result = Pokedex.getPokemonByName(name)
     .then(function(response) {
-      console.log(`GET /pokemon/${name}`);
+      console.log(`GET /getPokemon/${name}`);
       res.send(response);
     })
     .catch(function() {
       res.send(null);
       console.log(`ERROR AT: GET /getPokemon/${name}`);
+      console.log(`\t Name: ${name}`);
+    });
+});
+
+app.get("/getSpecies/:name", (req, res) => {
+  var name = req.params.name;
+  var result = Pokedex.getPokemonSpeciesByName(name)
+    .then(function(response) {
+      console.log(`GET /getSpecies/${name}`);
+      res.send(response);
+    })
+    .catch(function() {
+      res.send(null);
+      console.log(`ERROR AT: GET /getSpecies/${name}`);
       console.log(`\t Name: ${name}`);
     });
 });
