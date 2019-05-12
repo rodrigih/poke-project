@@ -1,5 +1,5 @@
 body {
-  background-color: #EEE;
+  background-color: #eee;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -14,72 +14,76 @@ code {
     monospace;
 }
 
-input{
+input {
   background-color: inherit;
   display: inline-block;
   margin-left: 5px;
   border: 1px inset grey;
   font: inherit;
   text-align: center;
-  border: thin solid rgba(0,0,0,0); /* Transparent */
+  border: thin solid rgba(0, 0, 0, 0); /* Transparent */
   border-bottom: 2px solid black;
 }
 
-input:focus{
+input:focus {
   border: thin dotted grey;
   border-bottom: 2px solid black;
 }
 
-button{
-  background-color: #FFDD54;
+button {
+  background-color: #ffdd54;
   border-radius: 5px;
-  color: #2020FB;
+  color: #2020fb;
   border: none;
   padding: 5px;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
-button:hover{
+button:hover {
   transition: transform 0.1s linear;
   transform: scale(1.1);
-} 
+}
 
-.flex{
+.flex {
   display: flex;
 }
 
-.flex-column{
+.flex-column {
   flex-direction: column;
-} 
+}
 
-.flex-wrap{
+.flex-wrap {
   flex-wrap: wrap;
 }
 
-.content-center{
+.content-center {
   justify-content: center;
 }
 
-.content-space-between{
+.content-space-between {
   justify-content: space-between;
 }
 
-.capital{
+.capital {
   text-transform: capitalize;
 }
 
-.center-text{
+.center-text {
   text-align: center;
 }
 
-#btn-go{
+.hidden {
+  visibility: hidden;
+}
+
+#btn-go {
   margin-left: 1em;
   font-size: 16px;
-} 
+}
 
-#pokeball-img{
+#pokeball-img {
   width: 20px;
-  height: 20px; 
+  height: 20px;
   position: relative;
   top: 5px;
   left: 5px;

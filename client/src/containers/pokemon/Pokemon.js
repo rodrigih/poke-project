@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import React, {Component} from "react";
+import {Route, withRouter} from "react-router-dom";
+import cx from "classnames";
 
 import PokemonInfo from "./PokemonInfo";
 
@@ -22,13 +23,13 @@ class Pokemon extends Component {
     const pokemon = params.pokemon;
 
     if (pokemon) {
-      this.setState({ pokemonInput: pokemon });
+      this.setState({pokemonInput: pokemon});
     }
   }
 
   /* Event Handlers */
   handleChange(e) {
-    this.setState({ pokemonInput: e.target.value });
+    this.setState({pokemonInput: e.target.value});
   }
 
   handleSubmit(e) {
@@ -38,11 +39,18 @@ class Pokemon extends Component {
   }
 
   render() {
+    const {
+      match: {isExact}
+    } = this.props;
+
     return (
       <div>
-        <p> Enter a pok&eacute;mon name below. </p>
+        <p className={cx({hidden: !isExact})}>
+          {" "}
+          Enter a pok&eacute;mon name below.{" "}
+        </p>
 
-        <form style={{ marginTop: "1em" }} onSubmit={this.handleSubmit}>
+        <form style={{marginTop: "1em"}} onSubmit={this.handleSubmit}>
           <label htmlFor="pokemon-input"> Go </label>
           <img
             id="pokeball-img"

@@ -17,7 +17,9 @@ class PokemonInfo extends Component {
 
     this.state = {
       pokemonData: null,
-      speciesData: null
+      speciesData: null,
+      isLoading: false,
+      hasError: false
     };
 
     this.handleGettingPokemonData = this.handleGettingPokemonData.bind(this);
@@ -26,22 +28,39 @@ class PokemonInfo extends Component {
   }
 
   handleGettingPokemonData(data) {
-    this.setState({pokemonData: data});
+    this.setState({
+      pokemonData: data,
+      isLoading: false,
+      hasError: false
+    });
   }
 
   handleGettingSpeciesData(data) {
-    console.log(`FOOBAR: ${data}`);
-    this.setState({speciesData: data});
+    this.setState({
+      speciesData: data,
+      isLoading: false,
+      hasError: false
+    });
   }
 
   handleError(err) {
     console.log("API Error:", err);
+    this.setState({
+      hasError: true,
+      isLoading: false
+    });
   }
 
   /* Life Cycle functions */
   componentDidMount() {
     const {match: params} = this.props;
+
     if (params.pokemon) {
+      this.setState({
+        isLoading: true,
+        hasError: false
+      });
+
       getPokemonByName(params.pokemon)
         .then(this.handleGettingPokemonData)
         .catch(this.handleError);
@@ -61,6 +80,11 @@ class PokemonInfo extends Component {
     } = this.props;
 
     if (previousName !== pokemon && pokemon.length) {
+      this.setState({
+        isLoading: true,
+        hasError: false
+      });
+
       getPokemonByName(pokemon)
         .then(this.handleGettingPokemonData)
         .catch(this.handleError);
@@ -79,9 +103,18 @@ class PokemonInfo extends Component {
   }
 
   render() {
-    const {pokemonData, speciesData} = this.state;
+    const {pokemonData, speciesData, hasError, isLoading} = this.state;
+    const {
+      match: {
+        params: {pokemon}
+      }
+    } = this.props;
 
-    if (!pokemonData || !speciesData) {
+    if (hasError) {
+      return <p> Could not find {pokemon}</p>;
+    } else if (isLoading) {
+      return <p> Loading... </p>;
+    } else if (!pokemonData || !speciesData) {
       return <div />;
     }
 
