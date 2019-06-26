@@ -9,12 +9,15 @@ const Divider = styled.div`
 
 const TopText = styled.div`
   color: #eee;
-`;
+`; 
 
 class PokemonHeader extends Component {
-  displayTypes(typeArr) {
-    var pokeTypes = typeArr.map((curr, i) => (
-      <PokeType key={`type-${i}`} type={curr.type.name} />
+  displayTypes(typeArr){
+    var pokeTypes = typeArr.map((curr,i) => (
+      <PokeType
+        key={`type-${i}`}
+        type={curr.type.name}
+      />
     ));
 
     return pokeTypes;
@@ -26,7 +29,7 @@ class PokemonHeader extends Component {
     return (
       <div className="flex pokemon-header">
         <div className="flex flex-column">
-          <div className="sprite-container" style={{alignSelf: "center"}}>
+          <div className="sprite-container" style={{"alignSelf": "center"}}>
             <img alt="Pokemon sprite" src={spriteUrl} />
           </div>
 

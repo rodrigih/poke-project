@@ -30,7 +30,7 @@
   max-width: 250px;
   max-height: 250px;
 
-  /* Use flex to center image */
+  /* Use flex to center image */ 
   display: flex;
   justify-content: center;
   align-items: center;

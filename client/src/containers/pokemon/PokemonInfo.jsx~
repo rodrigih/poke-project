@@ -149,7 +149,7 @@ class PokemonInfo extends Component {
 
     // Order type array by its slot
     var orderedTypes = types.slice();
-    orderedTypes.sort(this.sortTypes);
+    orderedTypes.sort(sortTypes);
 
     return (
       <div>
