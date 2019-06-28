@@ -6,7 +6,7 @@ import {
   getPokemonSpeciesByName
 } from "../../helpers/pokemon-api";
 import {capitalize} from "../../helpers/utilities.js";
-import InfoCard from "../../components/InfoCard";
+import InfoCard from "../../components/infoCard";
 
 const ULInline = styled.ul`
   display: inline-block;
