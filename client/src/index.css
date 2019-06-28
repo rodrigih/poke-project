@@ -58,6 +58,7 @@ button:hover {
 
 .content-center {
   justify-content: center;
+  align-items: center;
 }
 
 .content-space-between {

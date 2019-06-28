@@ -1,11 +1,12 @@
 import React, {Component} from "react";
+import styled from "@emotion/styled";
+import PokemonHeader from "./PokemonHeader";
 import {
   getPokemonByName,
   getPokemonSpeciesByName
 } from "../../helpers/pokemon-api";
-import styled from "@emotion/styled";
-import PokemonHeader from "./PokemonHeader";
 import {capitalize} from "../../helpers/utilities.js";
+import InfoCard from "../../components/InfoCard";
 
 const ULInline = styled.ul`
   display: inline-block;
@@ -130,9 +131,10 @@ class PokemonInfo extends Component {
     } = pokemonData;
 
     // speciesData destructuring
-    const {genera} = speciesData;
+    const {genera, flavor_text_entries} = speciesData;
 
     const genus = this.getEnglish(genera).genus;
+    const flavorText = this.getEnglish(flavor_text_entries).flavor_text;
 
     var displayAbilities = function(obj) {
       if (!obj) {
@@ -160,10 +162,14 @@ class PokemonInfo extends Component {
           pokemonTypes={orderedTypes}
         />
 
-        <div>
-          <p>Abilities:</p>
-          {displayAbilities(pokemonData)}
-        </div>
+        <InfoCard title={"General"}>
+          <div>
+            <h2> Description:</h2>
+            <p> {flavorText} </p>
+          </div>
+        </InfoCard>
+
+        <InfoCard title={"Abilities"}>{displayAbilities(pokemonData)}</InfoCard>
       </div>
     );
   }

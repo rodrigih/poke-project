@@ -25,7 +25,7 @@ class PokemonHeader extends Component {
 
     return (
       <div className="flex pokemon-header">
-        <div className="flex flex-column">
+        <div className="flex flex-column content-center">
           <div className="sprite-container" style={{alignSelf: "center"}}>
             <img alt="Pokemon sprite" src={spriteUrl} />
           </div>
