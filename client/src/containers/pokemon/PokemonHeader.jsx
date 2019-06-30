@@ -9,6 +9,7 @@ const Divider = styled.div`
 
 const TopText = styled.div`
   color: #eee;
+  font-weight: bold;
 `;
 
 class PokemonHeader extends Component {
@@ -26,6 +27,7 @@ class PokemonHeader extends Component {
     return (
       <div className="flex pokemon-header">
         <div className="flex flex-column content-center">
+          <TopText>#132</TopText>
           <div className="sprite-container" style={{alignSelf: "center"}}>
             <img alt="Pokemon sprite" src={spriteUrl} />
           </div>

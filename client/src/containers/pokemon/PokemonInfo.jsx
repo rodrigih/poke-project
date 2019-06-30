@@ -54,19 +54,23 @@ class PokemonInfo extends Component {
 
   /* Life Cycle functions */
   componentDidMount() {
-    const {match: params} = this.props;
+    const {
+      match: {
+        params: {pokemon}
+      }
+    } = this.props;
 
-    if (params.pokemon) {
+    if (pokemon) {
       this.setState({
         isLoading: true,
         hasError: false
       });
 
-      getPokemonByName(params.pokemon)
+      getPokemonByName(pokemon)
         .then(this.handleGettingPokemonData)
         .catch(this.handleError);
 
-      getPokemonSpeciesByName(params.pokemon)
+      getPokemonSpeciesByName(pokemon)
         .then(this.handleGettingSpeciesData)
         .catch(this.handleError);
     }
