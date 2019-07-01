@@ -46,8 +46,7 @@ class Pokemon extends Component {
     return (
       <div>
         <p className={cx({hidden: !isExact})}>
-          {" "}
-          Enter a pok&eacute;mon name below.{" "}
+          Enter a pok&eacute;mon name below.
         </p>
 
         <form style={{marginTop: "1em"}} onSubmit={this.handleSubmit}>

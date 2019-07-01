@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import styled from "@emotion/styled";
 import PokemonHeader from "./PokemonHeader";
+import PokemonGeneral from "./PokemonGeneral";
 import {
   getPokemonByName,
   getPokemonSpeciesByName
 } from "../../helpers/pokemon-api";
-import {capitalize} from "../../helpers/utilities.js";
+import {getEnglish, capitalize} from "../../helpers/utilities.js";
 import InfoCard from "../../components/infoCard";
 
 const ULInline = styled.ul`
@@ -101,11 +102,6 @@ class PokemonInfo extends Component {
   }
 
   /* Helper functions */
-  getEnglish(dataArr) {
-    var englishObj = dataArr.find(curr => curr.language.name === "en");
-
-    return englishObj;
-  }
 
   sortTypes(a, b) {
     return a.slot - b.slot;
@@ -135,10 +131,9 @@ class PokemonInfo extends Component {
     } = pokemonData;
 
     // speciesData destructuring
-    const {genera, flavor_text_entries} = speciesData;
+    const {genera} = speciesData;
 
-    const genus = this.getEnglish(genera).genus;
-    const flavorText = this.getEnglish(flavor_text_entries).flavor_text;
+    const genus = getEnglish(genera).genus;
 
     var displayAbilities = function(obj) {
       if (!obj) {
@@ -166,12 +161,7 @@ class PokemonInfo extends Component {
           pokemonTypes={orderedTypes}
         />
 
-        <InfoCard title={"General"}>
-          <div>
-            <h2> Description:</h2>
-            <p> {flavorText} </p>
-          </div>
-        </InfoCard>
+        <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
 
         <InfoCard title={"Abilities"}>{displayAbilities(pokemonData)}</InfoCard>
       </div>
