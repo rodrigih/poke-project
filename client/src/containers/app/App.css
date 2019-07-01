@@ -36,12 +36,18 @@ nav a {
   color: white;
 }
 
+.App-content {
+  padding-bottom: 3em;
+}
+
 .App-footer {
+  box-sizing: border-box;
   background-color: #eee;
   font-size: 12px;
   position: fixed;
   bottom: 0px;
   width: 100%;
+  height: 3em;
   padding: 10px 0;
   z-index: 100; /* Footer always on top */
 }

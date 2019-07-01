@@ -3,5 +3,6 @@ export const EXPRESS_ENDPOINTS = {
   getSpecies: "/getSpecies",
   getMoves: "/getMoves",
   getItems: "/getItems",
-  getBerries: "/getBerries"
+  getBerries: "/getBerries",
+  getAbility: "/getAbility"
 };

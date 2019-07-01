@@ -43,6 +43,20 @@ app.get("/getSpecies/:name", (req, res) => {
     });
 });
 
+app.get("/getAbility/:name", (req, res) => {
+  var name = req.params.name;
+  var result = Pokedex.getAbilityByName(name)
+    .then(function(response) {
+      console.log(`GET /getAbility/${name}`);
+      res.send(response);
+    })
+    .catch(function(response) {
+      res.send(null);
+      console.log(`ERROR AT: GET /getAbility/${name}`);
+      console.log(`\t Name: ${name}`);
+    });
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
 });

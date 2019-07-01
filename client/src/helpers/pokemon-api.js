@@ -1,6 +1,6 @@
 import {EXPRESS_ENDPOINTS} from "../constants";
 
-const {getPokemon, getSpecies} = EXPRESS_ENDPOINTS;
+const {getPokemon, getSpecies, getAbility} = EXPRESS_ENDPOINTS;
 
 export const getPokemonByName = async name => {
   const lowerCaseName = name.toLowerCase();
@@ -17,6 +17,20 @@ export const getPokemonByName = async name => {
 export const getPokemonSpeciesByName = async name => {
   const lowerCaseName = name.toLowerCase();
   const response = await fetch(`${getSpecies}/${lowerCaseName}`);
+  const body = response.json();
+
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+
+  return body;
+};
+
+export const getAbilityByName = async name => {
+  const lowerCaseName = name.toLowerCase();
+  lowerCaseName.replace(" ", "-");
+
+  const response = await fetch(`${getAbility}/${lowerCaseName}`);
   const body = response.json();
 
   if (response.status !== 200) {

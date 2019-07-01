@@ -38,7 +38,7 @@ class App extends Component {
           <Route component={NavLinks} />
         </header>
 
-        <div style={{paddingBottom: "5px"}}>
+        <div className="App-content">
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/Pokemon" component={Pokemon} />

@@ -1,17 +1,12 @@
 import React, {Component} from "react";
-import styled from "@emotion/styled";
 import PokemonHeader from "./PokemonHeader";
 import PokemonGeneral from "./PokemonGeneral";
+import PokemonAbilities from "./PokemonAbilities";
 import {
   getPokemonByName,
   getPokemonSpeciesByName
 } from "../../helpers/pokemon-api";
 import {getEnglish, capitalize} from "../../helpers/utilities.js";
-import InfoCard from "../../components/infoCard";
-
-const ULInline = styled.ul`
-  display: inline-block;
-`;
 
 class PokemonInfo extends Component {
   constructor(props) {
@@ -46,7 +41,6 @@ class PokemonInfo extends Component {
   }
 
   handleError(err) {
-    console.log("API Error:", err);
     this.setState({
       hasError: true,
       isLoading: false
@@ -103,7 +97,7 @@ class PokemonInfo extends Component {
 
   /* Helper functions */
 
-  sortTypes(a, b) {
+  sortBySlot(a, b) {
     return a.slot - b.slot;
   }
 
@@ -127,6 +121,7 @@ class PokemonInfo extends Component {
     const {
       species: {name},
       sprites: {front_default},
+      abilities,
       types
     } = pokemonData;
 
@@ -135,22 +130,12 @@ class PokemonInfo extends Component {
 
     const genus = getEnglish(genera).genus;
 
-    var displayAbilities = function(obj) {
-      if (!obj) {
-        return <div />;
-      }
-
-      var arr = obj.abilities;
-      var listItems = arr.map((curr, ind) => (
-        <li key={`ability-${ind}`}>{curr.ability.name}</li>
-      ));
-
-      return <ULInline>{listItems}</ULInline>;
-    };
-
     // Order type array by its slot
     var orderedTypes = types.slice();
-    orderedTypes.sort(this.sortTypes);
+    orderedTypes.sort(this.sortBySlot);
+
+    var sortedAbilities = abilities.slice();
+    sortedAbilities = abilities.sort(this.sortBySlot);
 
     return (
       <div>
@@ -160,10 +145,8 @@ class PokemonInfo extends Component {
           pokemonGenus={genus}
           pokemonTypes={orderedTypes}
         />
-
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
-
-        <InfoCard title={"Abilities"}>{displayAbilities(pokemonData)}</InfoCard>
+        <PokemonAbilities abilities={sortedAbilities} />
       </div>
     );
   }
