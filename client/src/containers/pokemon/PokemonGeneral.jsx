@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import styled from "@emotion/styled";
 import {
   getEnglish,
   capitalize,
@@ -6,6 +7,11 @@ import {
   hectogramsToPounds
 } from "../../helpers/utilities.js";
 import InfoCard from "../../components/infoCard";
+
+const TwoColumns = styled.div`
+  column-count: 2;
+  line-height: 2em;
+`;
 
 class PokemonGeneral extends Component {
   displayHeight(height) {
@@ -74,7 +80,7 @@ class PokemonGeneral extends Component {
           <h2> Description:</h2>
           <p> {flavorText} </p>
           <h2> General Info:</h2>
-          <div style={{columnCount: 2, lineHeight: "2em"}}>
+          <TwoColumns>
             <div>
               {" "}
               <b>Height:</b> {this.displayHeight(height)}{" "}
@@ -103,7 +109,7 @@ class PokemonGeneral extends Component {
               {" "}
               <b>Effort Values:</b> {this.displayEffortValues(stats)}{" "}
             </div>
-          </div>
+          </TwoColumns>
         </div>
       </InfoCard>
     );

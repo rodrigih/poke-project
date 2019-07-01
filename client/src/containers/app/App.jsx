@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, {Component} from "react";
+import {Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
@@ -38,14 +38,16 @@ class App extends Component {
           <Route component={NavLinks} />
         </header>
 
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/Pokemon" component={Pokemon} />
-          <Route path="/Moves" component={Moves} />
-          <Route path="/Items" component={Items} />
-          <Route path="/Berries" component={Berries} />
-          <Route component={NoMatch} />
-        </Switch>
+        <div style={{paddingBottom: "5px"}}>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/Pokemon" component={Pokemon} />
+            <Route path="/Moves" component={Moves} />
+            <Route path="/Items" component={Items} />
+            <Route path="/Berries" component={Berries} />
+            <Route component={NoMatch} />
+          </Switch>
+        </div>
 
         <footer className="App-footer">
           Created using{" "}
