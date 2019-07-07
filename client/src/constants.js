@@ -4,5 +4,6 @@ export const EXPRESS_ENDPOINTS = {
   getMoves: "/getMoves",
   getItems: "/getItems",
   getBerries: "/getBerries",
-  getAbility: "/getAbility"
+  getAbility: "/getAbility",
+  getType: "/getType"
 };

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import PokemonHeader from "./PokemonHeader";
 import PokemonGeneral from "./PokemonGeneral";
 import PokemonAbilities from "./PokemonAbilities";
+import PokemonTypeMatchup from "./PokemonTypeMatchup";
 import {
   getPokemonByName,
   getPokemonSpeciesByName
@@ -147,6 +148,9 @@ class PokemonInfo extends Component {
         />
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
         <PokemonAbilities abilities={sortedAbilities} />
+        <PokemonTypeMatchup
+          typeArr={orderedTypes.map(curr => curr.type.name)}
+        />
       </div>
     );
   }

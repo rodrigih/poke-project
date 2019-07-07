@@ -22,7 +22,8 @@ const STYLE = {
   water: "#4E6BF9"
 };
 
-const TypeDiv = styled.div`
+const TypeDiv = styled.span`
+  display: inline-block;
   text-transform: capitalize;
   border-radius: 10%;
   padding: 5px 10px;
