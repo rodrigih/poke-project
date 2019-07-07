@@ -1,8 +1,20 @@
 import React, {Component} from "react";
+import styled from "@emotion/styled";
 import InfoCard from "../../components/infoCard";
 import {getTypeByName} from "../../helpers/pokemon-api";
 import {capitalize} from "../../helpers/utilities.js";
 import PokeType from "../../components/pokeTypes.jsx";
+
+const ColumnHeader = styled.h3`
+  border-bottom: 2px solid black;
+`;
+
+const ColumnDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 4em;
+`;
 
 class PokemonTypeMatchup extends Component {
   constructor(props) {
@@ -146,17 +158,18 @@ class PokemonTypeMatchup extends Component {
       });
 
       return (
-        <div
-          key={`matchup-column-${i}`}
-          className="flex flex-column contnet-space-between"
-        >
-          <h3>{title}</h3>
+        <ColumnDiv key={`matchup-column-${i}`}>
+          <ColumnHeader>{title}</ColumnHeader>
           {pokeTypeArr}
-        </div>
+        </ColumnDiv>
       );
     });
 
-    return <div className="flex content-space-between">{columns}</div>;
+    return (
+      <div className="flex" style={{justifyContent: "center"}}>
+        {columns}
+      </div>
+    );
   }
 
   render() {
