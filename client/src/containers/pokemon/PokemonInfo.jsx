@@ -5,7 +5,9 @@ import PokemonAbilities from "./PokemonAbilities";
 import PokemonTypeMatchup from "./PokemonTypeMatchup";
 import {
   getPokemonByName,
-  getPokemonSpeciesByName
+  getPokemonSpeciesByName,
+  getAbilityByName,
+  getTypeByName
 } from "../../helpers/pokemon-api";
 import {getEnglish, capitalize} from "../../helpers/utilities.js";
 
@@ -16,15 +18,68 @@ class PokemonInfo extends Component {
     this.state = {
       pokemonData: null,
       speciesData: null,
+      abilityDataArr: [],
+      typeDataArr: [],
       isLoading: false,
       hasError: false
     };
 
     this.handleGettingPokemonData = this.handleGettingPokemonData.bind(this);
     this.handleGettingSpeciesData = this.handleGettingSpeciesData.bind(this);
+    this.handleGettingAbilityData = this.handleGettingAbilityData.bind(this);
+    this.handleGettingTypeData = this.handleGettingTypeData.bind(this);
     this.handleError = this.handleError.bind(this);
   }
 
+  getAllPokemonData() {
+    const {
+      match: {
+        params: {pokemon}
+      }
+    } = this.props;
+
+    if (pokemon) {
+      this.setState({
+        isLoading: true,
+        hasError: false
+      });
+    }
+
+    getPokemonByName(pokemon)
+      .then(pokemonData => {
+        this.handleGettingPokemonData(pokemonData);
+
+        // pokemonData destructuring
+        const {abilities, types} = pokemonData;
+
+        var sortedAbilities = abilities.slice();
+        sortedAbilities = abilities.sort(this.sortBySlot);
+
+        var sortedTypes = types.slice();
+        sortedTypes.sort(this.sortBySlot);
+
+        sortedAbilities.forEach(abilityData => {
+          const abilityName = abilityData.ability.name;
+          getAbilityByName(abilityName)
+            .then(this.handleGettingAbilityData)
+            .catch(this.handleError);
+        });
+
+        sortedTypes.forEach(typeData => {
+          const typeName = typeData.type.name;
+          getTypeByName(typeName)
+            .then(this.handleGettingTypeData)
+            .catch(this.handleError);
+        });
+      })
+      .catch(this.handleError);
+
+    getPokemonSpeciesByName(pokemon)
+      .then(this.handleGettingSpeciesData)
+      .catch(this.handleError);
+  }
+
+  // Functions for updating states from API results
   handleGettingPokemonData(data) {
     this.setState({
       pokemonData: data,
@@ -39,6 +94,20 @@ class PokemonInfo extends Component {
       isLoading: false,
       hasError: false
     });
+  }
+
+  handleGettingAbilityData(data) {
+    var dataCopy = this.state.abilityDataArr.slice();
+    dataCopy.push(data);
+
+    this.setState({abilityDataArr: dataCopy});
+  }
+
+  handleGettingTypeData(data) {
+    var dataCopy = this.state.typeDataArr.slice();
+    dataCopy.push(data);
+
+    this.setState({typeDataArr: dataCopy});
   }
 
   handleError(err) {
@@ -62,13 +131,7 @@ class PokemonInfo extends Component {
         hasError: false
       });
 
-      getPokemonByName(pokemon)
-        .then(this.handleGettingPokemonData)
-        .catch(this.handleError);
-
-      getPokemonSpeciesByName(pokemon)
-        .then(this.handleGettingSpeciesData)
-        .catch(this.handleError);
+      this.getAllPokemonData();
     }
   }
 
@@ -82,17 +145,13 @@ class PokemonInfo extends Component {
 
     if (previousName !== pokemon && pokemon.length) {
       this.setState({
+        abilityDataArr: [],
+        typeDataArr: [],
         isLoading: true,
         hasError: false
       });
 
-      getPokemonByName(pokemon)
-        .then(this.handleGettingPokemonData)
-        .catch(this.handleError);
-
-      getPokemonSpeciesByName(pokemon)
-        .then(this.handleGettingSpeciesData)
-        .catch(this.handleError);
+      this.getAllPokemonData();
     }
   }
 
@@ -103,7 +162,15 @@ class PokemonInfo extends Component {
   }
 
   render() {
-    const {pokemonData, speciesData, hasError, isLoading} = this.state;
+    const {
+      pokemonData,
+      speciesData,
+      abilityDataArr,
+      typeDataArr,
+      isLoading,
+      hasError
+    } = this.state;
+
     const {
       match: {
         params: {pokemon}
@@ -122,7 +189,6 @@ class PokemonInfo extends Component {
     const {
       species: {name},
       sprites: {front_default},
-      abilities,
       types
     } = pokemonData;
 
@@ -131,12 +197,9 @@ class PokemonInfo extends Component {
 
     const genus = getEnglish(genera).genus;
 
-    // Order type array by its slot
+    // Order Types by slot
     var orderedTypes = types.slice();
     orderedTypes.sort(this.sortBySlot);
-
-    var sortedAbilities = abilities.slice();
-    sortedAbilities = abilities.sort(this.sortBySlot);
 
     return (
       <div>
@@ -147,10 +210,8 @@ class PokemonInfo extends Component {
           pokemonTypes={orderedTypes}
         />
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
-        <PokemonAbilities abilities={sortedAbilities} />
-        <PokemonTypeMatchup
-          typeArr={orderedTypes.map(curr => curr.type.name)}
-        />
+        <PokemonAbilities abilityDataArr={abilityDataArr} />
+        <PokemonTypeMatchup typeDataArr={typeDataArr} />
       </div>
     );
   }
