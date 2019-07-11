@@ -4,6 +4,7 @@ import InfoCard from "../../components/infoCard";
 import {getEnglish, capitalize} from "../../helpers/utilities.js";
 
 const DivIndent = styled.div`
+  margin-left: 1.5em;
   padding-left: 1.5em;
   border-left: 3px solid grey;
 `;
@@ -55,7 +56,7 @@ function displayAbilities(props) {
 }
 
 const PokemonAbilities = props => {
-  return <InfoCard title={"Abilities"}>{displayAbilities(props)}</InfoCard>;
+  return <InfoCard title={"Abilities"}> {displayAbilities(props)} </InfoCard>;
 };
 
 export default PokemonAbilities;

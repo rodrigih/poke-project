@@ -10,6 +10,7 @@ import {
   getTypeByName
 } from "../../helpers/pokemon-api";
 import {getEnglish, capitalize} from "../../helpers/utilities.js";
+import {TYPE_EFFECT_ABILITIES} from "../../constants.js";
 
 class PokemonInfo extends Component {
   constructor(props) {
@@ -161,6 +162,38 @@ class PokemonInfo extends Component {
     return a.slot - b.slot;
   }
 
+  getTypeAlteringAbilities() {
+    const dataArr = this.state.abilityDataArr;
+    const typeAlteringAbilities = [];
+
+    if (!dataArr || dataArr.length === 0) {
+      return typeAlteringAbilities;
+    }
+
+    const abilities = dataArr.map(data => {
+      return {
+        key: data.name,
+        name: getEnglish(data.names).name.toLowerCase()
+      };
+    });
+
+    abilities.forEach(abilityData => {
+      const {key, name} = abilityData;
+
+      var typeAlteringData = TYPE_EFFECT_ABILITIES[key];
+
+      if (typeAlteringData) {
+        var newObj = {
+          name: name,
+          typeEffectArr: typeAlteringData
+        };
+        typeAlteringAbilities.push(newObj);
+      }
+    });
+
+    return typeAlteringAbilities;
+  }
+
   render() {
     const {
       pokemonData,
@@ -201,6 +234,8 @@ class PokemonInfo extends Component {
     var orderedTypes = types.slice();
     orderedTypes.sort(this.sortBySlot);
 
+    var typeAlteringAbilities = this.getTypeAlteringAbilities();
+
     return (
       <div>
         <PokemonHeader
@@ -211,7 +246,10 @@ class PokemonInfo extends Component {
         />
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
         <PokemonAbilities abilityDataArr={abilityDataArr} />
-        <PokemonTypeMatchup typeDataArr={typeDataArr} />
+        <PokemonTypeMatchup
+          typeDataArr={typeDataArr}
+          typeAlteringAbilities={typeAlteringAbilities}
+        />
       </div>
     );
   }

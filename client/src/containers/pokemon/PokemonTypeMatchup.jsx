@@ -125,9 +125,59 @@ function renderMatchupColumns(props) {
   );
 }
 
+function renderAddendum(props) {
+  const {typeAlteringAbilities} = props;
+
+  // If no abilites alter type matchup, return empty div
+  if (typeAlteringAbilities.length === 0) {
+    return <div />;
+  }
+
+  var createSentence = data => {
+    const {name, typeEffectArr} = data;
+
+    var beginning = (
+      <span>
+        If this pokemon has the ability <b>{name}</b>
+      </span>
+    );
+
+    var effectExpArr = typeEffectArr.map((obj, i, arr) => {
+      const {type, mult} = obj;
+      const divider = i < arr.length - 1 ? "and" : "";
+      return (
+        <span>
+          the effectiveness of <b>{type}</b> moves is <b>x{mult}</b> {divider}{" "}
+        </span>
+      );
+    });
+
+    return (
+      <span>
+        {beginning}, {effectExpArr}
+      </span>
+    );
+  };
+
+  // Display information of each ability that alters type matchup
+  var items = typeAlteringAbilities.map(data => createSentence(data));
+
+  return (
+    <ul>
+      {items.map((item, i) => (
+        <li key={`ability-info-${i}`}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+
 const PokemonTypeMatchup = props => {
   return (
-    <InfoCard title={"Type Matchup"}>{renderMatchupColumns(props)}</InfoCard>
+    <InfoCard title={"Type Matchup"}>
+      <div className="flex flex-column content-center">
+        {renderMatchupColumns(props)} {renderAddendum(props)}
+      </div>
+    </InfoCard>
   );
 };
 
