@@ -52,13 +52,17 @@ class PokemonInfo extends Component {
         this.handleGettingPokemonData(pokemonData);
 
         // pokemonData destructuring
-        const {abilities, types} = pokemonData;
+        const {abilities, types, species} = pokemonData;
 
         var sortedAbilities = abilities.slice();
         sortedAbilities = abilities.sort(this.sortBySlot);
 
         var sortedTypes = types.slice();
         sortedTypes.sort(this.sortBySlot);
+
+        getPokemonSpeciesByName(species.name)
+          .then(this.handleGettingSpeciesData)
+          .catch(this.handleError);
 
         sortedAbilities.forEach(abilityData => {
           const abilityName = abilityData.ability.name;
@@ -74,10 +78,6 @@ class PokemonInfo extends Component {
             .catch(this.handleError);
         });
       })
-      .catch(this.handleError);
-
-    getPokemonSpeciesByName(pokemon)
-      .then(this.handleGettingSpeciesData)
       .catch(this.handleError);
   }
 
