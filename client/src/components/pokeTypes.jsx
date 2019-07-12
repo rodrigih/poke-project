@@ -5,7 +5,7 @@ const STYLE = {
   bug: "#2A8E16",
   dark: "#424242",
   dragon: "linear-gradient(0deg, rgba(214,12,33,1) 35%, rgba(3,94,219,1) 64%)",
-  electric: "#EEE400",
+  electric: "#FFCE0E",
   fairy: "#FF93F2",
   fighting: "#F38D33",
   fire: "#FF5733",
@@ -29,6 +29,7 @@ const TypeDiv = styled.span`
   padding: 5px 10px;
   margin: 5px;
   color: #eee;
+  font-weight: bold;
 `;
 
 class PokeType extends Component {

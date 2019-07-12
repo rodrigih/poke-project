@@ -21,5 +21,6 @@ export const TYPE_EFFECT_ABILITIES = {
   "volt-absorb": [{type: "electric", mult: 0}],
   "water-absorb": [{type: "water", mult: 0}],
   "solid-rock": [{type: "super-effective", mult: 0.75}],
+  "wonder-guard": [{type: "non super-effective", mult: 0}],
   "thick-fat": [{type: "ice", mult: 0.5}, {type: "fire", mult: 0.5}]
 };
