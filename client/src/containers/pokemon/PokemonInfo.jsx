@@ -3,6 +3,7 @@ import PokemonHeader from "./PokemonHeader";
 import PokemonGeneral from "./PokemonGeneral";
 import PokemonAbilities from "./PokemonAbilities";
 import PokemonTypeMatchup from "./PokemonTypeMatchup";
+import PokemonStats from "./PokemonStats";
 import {
   getPokemonByName,
   getPokemonSpeciesByName,
@@ -222,7 +223,8 @@ class PokemonInfo extends Component {
     const {
       species: {name},
       sprites: {front_default},
-      types
+      types,
+      stats
     } = pokemonData;
 
     // speciesData destructuring
@@ -235,6 +237,9 @@ class PokemonInfo extends Component {
     orderedTypes.sort(this.sortBySlot);
 
     var typeAlteringAbilities = this.getTypeAlteringAbilities();
+
+    var orderedStats = stats.slice();
+    orderedStats.reverse();
 
     return (
       <div>
@@ -250,6 +255,7 @@ class PokemonInfo extends Component {
           typeDataArr={typeDataArr}
           typeAlteringAbilities={typeAlteringAbilities}
         />
+        <PokemonStats statData={orderedStats} />
       </div>
     );
   }

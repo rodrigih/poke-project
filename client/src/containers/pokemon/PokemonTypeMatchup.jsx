@@ -146,7 +146,7 @@ function renderAddendum(props) {
       const {type, mult} = obj;
       const divider = i < arr.length - 1 ? "and" : "";
       return (
-        <span>
+        <span key={`phrase-${i}`}>
           the effectiveness of <b>{type}</b> moves is <b>x{mult}</b> {divider}{" "}
         </span>
       );
