@@ -32,3 +32,23 @@ export function hectogramsToPounds(hect) {
   var pounds = roundNum(poundsRaw, 1);
   return pounds;
 }
+
+/* Pokemon Stat funcitons */
+export function calcStat(statInfo) {
+  if (!statInfo || Object.keys(statInfo).length === 0) {
+    return 0;
+  }
+
+  const {stat, baseStat, iv, ev, level, natureMult} = statInfo;
+
+  var numerator = (2 * baseStat + iv + Math.floor(ev / 4)) * level;
+  const denom = 100;
+
+  var quotient = Math.floor(numerator / denom);
+
+  if (stat.toLowerCase() === "hp") {
+    return quotient + level + 10;
+  }
+
+  return Math.floor((quotient + 5) * natureMult);
+}
