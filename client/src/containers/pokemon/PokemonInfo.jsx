@@ -207,7 +207,7 @@ class PokemonInfo extends Component {
           abilityDataArr={abilityDataArr}
           typeDataArr={typeDataArr}
         />
-        <PokemonStats statData={stats} />
+        <PokemonStats pokemonName={name} statData={stats} />
       </div>
     );
   }

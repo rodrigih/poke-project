@@ -1,5 +1,12 @@
 import React from "react";
-import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis} from "recharts";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Legend
+} from "recharts";
 import styled from "@emotion/styled";
 import InfoCard from "../../components/infoCard";
 import {capitalize, calcStat} from "../../helpers/utilities.js";
@@ -10,6 +17,10 @@ const Header = styled.h3`
   border-bottom: 2px solid black;
   display: inline-block;
   margin: inherit auto;
+`;
+
+const Addendum = styled.div`
+  font-size: 12px;
 `;
 
 /* Constants used in pokemon stats */
@@ -79,7 +90,9 @@ function processBaseStatData(statData) {
   });
 }
 
-function getStatRangeData(statData) {
+function getStatRangeData(props, statData) {
+  const {pokemonName} = props;
+
   return statData.map(data => {
     const {
       stat: {name},
@@ -104,6 +117,14 @@ function getStatRangeData(statData) {
       MAX_STAT_INFO
     );
 
+    if (name === "hp" && pokemonName === "shedinja") {
+      return {
+        name: statName,
+        minStat: 1,
+        maxStat: 1
+      };
+    }
+
     return {
       name: statName,
       minStat: calcStat(minStatInfo),
@@ -117,7 +138,7 @@ const PokemonStats = React.memo(props => {
 
   const orderedStats = statData.slice().reverse();
   const data = processBaseStatData(orderedStats);
-  const statRangeData = getStatRangeData(orderedStats);
+  const statRangeData = getStatRangeData(props, orderedStats);
 
   return (
     <InfoCard title={"Stats"}>
@@ -134,28 +155,32 @@ const PokemonStats = React.memo(props => {
         <Header> Stat Range (Lv. 100)</Header>
         <ResponsiveContainer width="80%" height={400}>
           <BarChart data={statRangeData} layout="vertical" margin={{right: 50}}>
-            {StatBar({dataKey: "maxStat", fill: "#4FA4E4"})}
-            {StatBar({dataKey: "minStat", fill: "#E45010"})}
+            {StatBar({dataKey: "maxStat", fill: "#4FA4E4", name: "Max Stat"})}
+            {StatBar({dataKey: "minStat", fill: "#E45010", name: "Min Stat"})}
             {StatXAxis({domain: [0, 714]})}
             {StatYAxis}
+
+            <Legend verticalAlign="top" height={36} />
           </BarChart>
         </ResponsiveContainer>
 
-        <p>
-          * Note: Above stats are calculated for the pokemon at level 100 in the
-          following manner
-        </p>
+        <Addendum>
+          <p>
+            <b>Note:</b> Above stats are calculated for the pokemon at level 100
+            in the following manner:
+          </p>
 
-        <ul>
-          <li>
-            Minimum stat uses no EVs, no IVs, and a detremental nature (if
-            applicable).
-          </li>
-          <li>
-            Maximum stat uses 252 EVs, 31 IVs, and a beneficial nature (if
-            applicable).
-          </li>
-        </ul>
+          <ul>
+            <li>
+              Minimum stat uses no EVs, no IVs, and a detremental nature (if
+              applicable).
+            </li>
+            <li>
+              Maximum stat uses 252 EVs, 31 IVs, and a beneficial nature (if
+              applicable).
+            </li>
+          </ul>
+        </Addendum>
       </div>
     </InfoCard>
   );
