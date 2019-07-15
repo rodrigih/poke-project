@@ -10,7 +10,7 @@ import {
   getAbilityByName,
   getTypeByName
 } from "../../helpers/pokemon-api";
-import {getEnglish, capitalize, sortBySlot} from "../../helpers/utilities.js";
+import {getEnglish, sortBySlot} from "../../helpers/utilities.js";
 
 class PokemonInfo extends Component {
   constructor(props) {

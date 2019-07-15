@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import "./PokemonHeader.css";
 import PokeType from "../../components/pokeTypes.jsx";
-import {getEnglish, capitalize, sortBySlot} from "../../helpers/utilities.js";
+import {capitalize, sortBySlot} from "../../helpers/utilities.js";
 
 const Divider = styled.div`
   width: 10%;
