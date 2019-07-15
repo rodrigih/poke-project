@@ -10,7 +10,7 @@ import {
   getAbilityByName,
   getTypeByName
 } from "../../helpers/pokemon-api";
-import {getEnglish, capitalize} from "../../helpers/utilities.js";
+import {getEnglish, capitalize, sortBySlot} from "../../helpers/utilities.js";
 
 class PokemonInfo extends Component {
   constructor(props) {
@@ -54,10 +54,10 @@ class PokemonInfo extends Component {
         const {abilities, types, species} = pokemonData;
 
         var sortedAbilities = abilities.slice();
-        sortedAbilities = abilities.sort(this.sortBySlot);
+        sortedAbilities = abilities.sort(sortBySlot);
 
         var sortedTypes = types.slice();
-        sortedTypes.sort(this.sortBySlot);
+        sortedTypes.sort(sortBySlot);
 
         getPokemonSpeciesByName(species.name)
           .then(this.handleGettingSpeciesData)
@@ -156,12 +156,6 @@ class PokemonInfo extends Component {
     }
   }
 
-  /* Helper functions */
-
-  sortBySlot(a, b) {
-    return a.slot - b.slot;
-  }
-
   render() {
     const {
       pokemonData,
@@ -199,10 +193,6 @@ class PokemonInfo extends Component {
 
     const genus = getEnglish(genera).genus;
 
-    // Order Types by slot
-    var orderedTypes = types.slice();
-    orderedTypes.sort(this.sortBySlot);
-
     var orderedStats = stats.slice();
     orderedStats.reverse();
 
@@ -210,9 +200,9 @@ class PokemonInfo extends Component {
       <div>
         <PokemonHeader
           spriteUrl={front_default}
-          pokemonName={capitalize(name)}
+          pokemonName={name}
           pokemonGenus={genus}
-          pokemonTypes={orderedTypes}
+          pokemonTypes={types}
         />
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
         <PokemonAbilities abilityDataArr={abilityDataArr} />

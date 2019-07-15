@@ -52,3 +52,8 @@ export function calcStat(statInfo) {
 
   return Math.floor((quotient + 5) * natureMult);
 }
+
+/* Sorting functions */
+export function sortBySlot(a, b) {
+  return a.slot - b.slot;
+}
