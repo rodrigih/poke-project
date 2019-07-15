@@ -55,8 +55,8 @@ function displayAbilities(props) {
   });
 }
 
-const PokemonAbilities = props => {
+const PokemonAbilities = React.memo(props => {
   return <InfoCard title={"Abilities"}> {displayAbilities(props)} </InfoCard>;
-};
+});
 
 export default PokemonAbilities;
