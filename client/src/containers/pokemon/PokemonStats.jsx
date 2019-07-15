@@ -62,9 +62,7 @@ const StatBar = props => {
   );
 };
 
-function processBaseStatData(props) {
-  const {statData} = props;
-
+function processBaseStatData(statData) {
   return statData.map(data => {
     const {
       stat: {name},
@@ -81,9 +79,7 @@ function processBaseStatData(props) {
   });
 }
 
-function getStatRangeData(props) {
-  const {statData} = props;
-
+function getStatRangeData(statData) {
   return statData.map(data => {
     const {
       stat: {name},
@@ -116,12 +112,15 @@ function getStatRangeData(props) {
   });
 }
 
-const PokemonStats = props => {
-  const data = processBaseStatData(props);
+const PokemonStats = React.memo(props => {
+  const {statData} = props;
 
-  const statRangeData = getStatRangeData(props);
+  const orderedStats = statData.slice().reverse();
+  const data = processBaseStatData(orderedStats);
+  const statRangeData = getStatRangeData(orderedStats);
 
-  //<StatXAxis dataKey="baseStat" domain={[0,255]} />
+  console.log("Pokemon Stats rendered");
+
   return (
     <InfoCard title={"Stats"}>
       <div className="flex flex-column content-center">
@@ -162,6 +161,6 @@ const PokemonStats = props => {
       </div>
     </InfoCard>
   );
-};
+});
 
 export default PokemonStats;

@@ -193,9 +193,6 @@ class PokemonInfo extends Component {
 
     const genus = getEnglish(genera).genus;
 
-    var orderedStats = stats.slice();
-    orderedStats.reverse();
-
     return (
       <div>
         <PokemonHeader
@@ -210,7 +207,7 @@ class PokemonInfo extends Component {
           abilityDataArr={abilityDataArr}
           typeDataArr={typeDataArr}
         />
-        <PokemonStats statData={orderedStats} />
+        <PokemonStats statData={stats} />
       </div>
     );
   }
