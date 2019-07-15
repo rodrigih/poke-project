@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.argv[2] || process.env.PORT || 5000;
 
 const PokeAPI = require("pokedex-promise-v2");
 const Pokedex = new PokeAPI();
