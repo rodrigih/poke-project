@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import InfoCard from "../../components/infoCard";
-import {capitalize} from "../../helpers/utilities.js";
+import {capitalize, getEnglish} from "../../helpers/utilities.js";
 import PokeType from "../../components/pokeTypes.jsx";
+import {TYPE_EFFECT_ABILITIES} from "../../constants.js";
 
 const ColumnHeader = styled.h3`
   border-bottom: 2px solid black;
@@ -125,9 +126,7 @@ function renderMatchupColumns(props) {
   );
 }
 
-function renderAddendum(props) {
-  const {typeAlteringAbilities} = props;
-
+function renderAddendum(typeAlteringAbilities) {
   // If no abilites alter type matchup, return empty div
   if (typeAlteringAbilities.length === 0) {
     return <div />;
@@ -171,14 +170,49 @@ function renderAddendum(props) {
   );
 }
 
-const PokemonTypeMatchup = props => {
+function getTypeAlteringAbilities(props) {
+  const {abilityDataArr: dataArr} = props;
+
+  const typeAlteringAbilities = [];
+
+  if (!dataArr || dataArr.length === 0) {
+    return typeAlteringAbilities;
+  }
+
+  const abilities = dataArr.map(data => {
+    return {
+      key: data.name,
+      name: getEnglish(data.names).name.toLowerCase()
+    };
+  });
+
+  abilities.forEach(abilityData => {
+    const {key, name} = abilityData;
+
+    var typeAlteringData = TYPE_EFFECT_ABILITIES[key];
+
+    if (typeAlteringData) {
+      var newObj = {
+        name: name,
+        typeEffectArr: typeAlteringData
+      };
+      typeAlteringAbilities.push(newObj);
+    }
+  });
+
+  return typeAlteringAbilities;
+}
+
+const PokemonTypeMatchup = React.memo(props => {
+  const typeAlteringAbilities = getTypeAlteringAbilities(props);
+
   return (
     <InfoCard title={"Type Matchup"}>
       <div className="flex flex-column content-center">
-        {renderMatchupColumns(props)} {renderAddendum(props)}
+        {renderMatchupColumns(props)} {renderAddendum(typeAlteringAbilities)}
       </div>
     </InfoCard>
   );
-};
+});
 
 export default PokemonTypeMatchup;
