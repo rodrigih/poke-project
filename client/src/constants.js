@@ -5,7 +5,9 @@ export const EXPRESS_ENDPOINTS = {
   getItems: "/getItems",
   getBerries: "/getBerries",
   getAbility: "/getAbility",
-  getType: "/getType"
+  getType: "/getType",
+  getEvolution: "/getEvolution",
+  getResource: "/getResource"
 };
 
 export const TYPE_EFFECT_ABILITIES = {
