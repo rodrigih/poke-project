@@ -141,7 +141,7 @@ const PokemonStats = React.memo(props => {
   const statRangeData = getStatRangeData(props, orderedStats);
 
   return (
-    <InfoCard title={"Stats"}>
+    <InfoCard title="Stats">
       <div className="flex flex-column content-center">
         <Header>Base Stats</Header>
         <ResponsiveContainer width="80%" height={400}>

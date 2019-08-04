@@ -4,11 +4,13 @@ import PokemonGeneral from "./PokemonGeneral";
 import PokemonAbilities from "./PokemonAbilities";
 import PokemonTypeMatchup from "./PokemonTypeMatchup";
 import PokemonStats from "./PokemonStats";
+import EvolutionChain from "./EvolutionChain";
 import {
   getPokemonByName,
   getPokemonSpeciesByName,
   getAbilityByName,
-  getTypeByName
+  getTypeByName,
+  getResourceByUrl
 } from "../../helpers/pokemon-api";
 import {getEnglish, sortBySlot} from "../../helpers/utilities.js";
 
@@ -21,6 +23,7 @@ class PokemonInfo extends Component {
       speciesData: null,
       abilityDataArr: [],
       typeDataArr: [],
+      evolutionData: null,
       isLoading: false,
       hasError: false
     };
@@ -29,6 +32,9 @@ class PokemonInfo extends Component {
     this.handleGettingSpeciesData = this.handleGettingSpeciesData.bind(this);
     this.handleGettingAbilityData = this.handleGettingAbilityData.bind(this);
     this.handleGettingTypeData = this.handleGettingTypeData.bind(this);
+    this.handleGettingEvolutionData = this.handleGettingEvolutionData.bind(
+      this
+    );
     this.handleError = this.handleError.bind(this);
   }
 
@@ -60,7 +66,16 @@ class PokemonInfo extends Component {
         sortedTypes.sort(sortBySlot);
 
         getPokemonSpeciesByName(species.name)
-          .then(this.handleGettingSpeciesData)
+          .then(speciesData => {
+            const {
+              evolution_chain: {url}
+            } = speciesData;
+            this.handleGettingSpeciesData(speciesData);
+
+            getResourceByUrl(url)
+              .then(this.handleGettingEvolutionData)
+              .catch(this.handleError);
+          })
           .catch(this.handleError);
 
         sortedAbilities.forEach(abilityData => {
@@ -109,6 +124,14 @@ class PokemonInfo extends Component {
     dataCopy.push(data);
 
     this.setState({typeDataArr: dataCopy});
+  }
+
+  handleGettingEvolutionData(data) {
+    this.setState({
+      evolutionData: data,
+      isLoading: false,
+      hasError: false
+    });
   }
 
   handleError(err) {
@@ -161,6 +184,7 @@ class PokemonInfo extends Component {
       pokemonData,
       speciesData,
       abilityDataArr,
+      evolutionData,
       typeDataArr,
       isLoading,
       hasError
@@ -208,6 +232,7 @@ class PokemonInfo extends Component {
           typeDataArr={typeDataArr}
         />
         <PokemonStats pokemonName={name} statData={stats} />
+        <EvolutionChain pokemonName={name} evolutionData={evolutionData} />
       </div>
     );
   }

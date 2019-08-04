@@ -57,6 +57,35 @@ app.get("/getAbility/:name", (req, res) => {
     });
 });
 
+app.get("/getEvolution/:id", (req, res) => {
+  var id = req.params.id;
+  var result = Pokedex.getEvolutionChainById(id)
+    .then(response => {
+      console.log(`GET /getEvolution/${id}`);
+      res.send(response);
+    })
+    .catch(response => {
+      res.send(null);
+      console.log(`ERROR AT: GET /getEvolution/${id}`);
+      console.log(`\t Id: ${id}`);
+    });
+});
+
+app.get("/getResource/:url", (req, res) => {
+  var url = req.params.url;
+
+  var result = Pokedex.resource(url)
+    .then(response => {
+      console.log(`GET /getResource/${decodeURIComponent(url)}`);
+      res.send(response);
+    })
+    .catch(response => {
+      res.send(null);
+      console.log(`ERROR AT: GET /getResource/${url}`);
+      console.log(`\t Url: ${url}`);
+    });
+});
+
 app.get("/getType/:name", (req, res) => {
   var name = req.params.name;
   var result = Pokedex.getTypeByName(name)
