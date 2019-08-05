@@ -51,7 +51,9 @@ class EvolutionChain extends PureComponent {
     const {
       pokemon: {name}
     } = variety;
-    return !name.match("-mega-");
+    var pattern = new RegExp("-mega-?");
+
+    return !name.match(pattern);
   }
 
   getAllData(speciesName) {
