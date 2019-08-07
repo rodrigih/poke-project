@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import {Link} from "react-router-dom";
 import styled from "@emotion/styled";
 import InfoCard from "../../components/infoCard";
 import {
@@ -190,8 +191,10 @@ class EvolutionChain extends PureComponent {
           <EvoNode key={`stage-${stage} variety-${varietyInd}`}>
             {evoArrow}
             <EvoSprite>
-              <img alt={imgDesc} src={spriteUrl} />
-              <p>{capitalize(name)}</p>
+              <Link to={`/pokemon/${name}`}>
+                <img alt={imgDesc} src={spriteUrl} />
+                <p>{capitalize(name)}</p>
+              </Link>
             </EvoSprite>
           </EvoNode>
         );
