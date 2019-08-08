@@ -29,6 +29,7 @@ const FlexColumnCenter = styled.div`
 
 const EvoSprite = styled(FlexColumnCenter)`
   padding: 1em;
+  text-align: center;
 `;
 
 class EvolutionChain extends PureComponent {
@@ -218,7 +219,7 @@ class EvolutionChain extends PureComponent {
 
   renderChain() {
     const {evolutionTree} = this.state;
-    const {pokemonName} = this.props;
+    const {speciesName} = this.props;
 
     if (!evolutionTree) {
       return <p> Error rendering evolution chain </p>;
@@ -227,7 +228,9 @@ class EvolutionChain extends PureComponent {
     // Has Evolutions
     if (evolutionTree.children && evolutionTree.children.length) {
       return (
-        <div className="flex">{this.renderColumn([evolutionTree], [])}</div>
+        <div className="flex content-center">
+          {this.renderColumn([evolutionTree], [])}
+        </div>
       );
     }
 
@@ -235,7 +238,7 @@ class EvolutionChain extends PureComponent {
     return (
       <p style={{textAlign: "center"}}>
         {" "}
-        {capitalize(pokemonName)} is not known to evolve.{" "}
+        {capitalize(speciesName)} is not known to evolve.{" "}
       </p>
     );
   }

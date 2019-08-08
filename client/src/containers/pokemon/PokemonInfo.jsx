@@ -206,22 +206,24 @@ class PokemonInfo extends Component {
 
     // pokemonData destructuring
     const {
-      species: {name},
+      name: pokemonName,
       sprites: {front_default},
       types,
       stats
     } = pokemonData;
 
     // speciesData destructuring
-    const {genera} = speciesData;
+    const {genera, names} = speciesData;
 
     const genus = getEnglish(genera).genus;
+    const speciesName = getEnglish(names).name;
 
     return (
       <div>
         <PokemonHeader
           spriteUrl={front_default}
-          pokemonName={name}
+          pokemonName={pokemonName}
+          speciesName={speciesName}
           pokemonGenus={genus}
           pokemonTypes={types}
         />
@@ -231,8 +233,11 @@ class PokemonInfo extends Component {
           abilityDataArr={abilityDataArr}
           typeDataArr={typeDataArr}
         />
-        <PokemonStats pokemonName={name} statData={stats} />
-        <EvolutionChain pokemonName={name} evolutionData={evolutionData} />
+        <PokemonStats pokemonName={pokemonName} statData={stats} />
+        <EvolutionChain
+          speciesName={speciesName}
+          evolutionData={evolutionData}
+        />
       </div>
     );
   }

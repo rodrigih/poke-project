@@ -21,6 +21,22 @@ function displayTypes(typeArr) {
   return pokeTypes;
 }
 
+function displayName(props) {
+  const {pokemonName, speciesName} = props;
+
+  if (pokemonName.match("-mega-?")) {
+    var wordArr = pokemonName.split("-").map(word => capitalize(word));
+    wordArr = wordArr
+      .slice(0, 2)
+      .reverse()
+      .concat(wordArr.slice(2));
+
+    return wordArr.join(" ");
+  }
+
+  return capitalize(speciesName);
+}
+
 const PokemonHeader = React.memo(props => {
   const {spriteUrl, pokemonName, pokemonGenus, pokemonTypes} = props;
 
@@ -35,11 +51,11 @@ const PokemonHeader = React.memo(props => {
           <img alt="Pokemon sprite" src={spriteUrl} />
         </div>
 
-        <div className="flex type-container">{displayTypes(orderedTypes)}</div>
+        <div className="flex">{displayTypes(orderedTypes)}</div>
       </div>
 
       <div className="flex flex-column pokemon-header-text">
-        <TopText> {capitalize(pokemonName)} </TopText>
+        <TopText> {displayName(props)} </TopText>
         <Divider />
         <div> {pokemonGenus} </div>
       </div>
