@@ -38,7 +38,7 @@ function displayName(props) {
 }
 
 const PokemonHeader = React.memo(props => {
-  const {spriteUrl, pokemonName, pokemonGenus, pokemonTypes} = props;
+  const {spriteUrl, pokemonGenus, pokemonTypes} = props;
 
   const orderedTypes = pokemonTypes.slice();
   orderedTypes.sort(sortBySlot);

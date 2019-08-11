@@ -26,3 +26,8 @@ export const TYPE_EFFECT_ABILITIES = {
   "wonder-guard": [{type: "non super-effective", mult: 0}],
   "thick-fat": [{type: "ice", mult: 0.5}, {type: "fire", mult: 0.5}]
 };
+
+export const DEFAULT_QUERY = {
+  wormadam: "wormadam-plant",
+  nidoran: "nidoran-m"
+};

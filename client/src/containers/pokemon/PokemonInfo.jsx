@@ -193,11 +193,13 @@ class PokemonInfo extends Component {
     const {
       match: {
         params: {pokemon}
-      }
+      },
+      userInput
     } = this.props;
 
     if (hasError) {
-      return <p> Could not find {pokemon}</p>;
+      var query = userInput ? userInput : pokemon;
+      return <p> Could not find {query}</p>;
     } else if (isLoading) {
       return <p> Loading... </p>;
     } else if (!pokemonData || !speciesData) {
