@@ -22,6 +22,9 @@ function displayHeight(height) {
 }
 
 function displayGenderRatio(femaleRatio) {
+  if (femaleRatio < 0) {
+    return "Genderless";
+  }
   var femalePercent = (femaleRatio / 8) * 100;
   var malePercent = 100 - femalePercent;
 

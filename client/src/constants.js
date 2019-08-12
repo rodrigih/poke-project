@@ -29,5 +29,6 @@ export const TYPE_EFFECT_ABILITIES = {
 
 export const DEFAULT_QUERY = {
   wormadam: "wormadam-plant",
-  nidoran: "nidoran-m"
+  nidoran: "nidoran-m",
+  minior: "minior-red-meteor"
 };
