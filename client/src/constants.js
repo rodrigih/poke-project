@@ -30,5 +30,8 @@ export const TYPE_EFFECT_ABILITIES = {
 export const DEFAULT_QUERY = {
   wormadam: "wormadam-plant",
   nidoran: "nidoran-m",
-  minior: "minior-red-meteor"
+  minior: "minior-red-meteor",
+  mimikyu: "mimikyu-disguised"
 };
+
+export const MINIOR_COLOURS = "blue|green|indigo|orange|red|violet|yellow";

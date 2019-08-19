@@ -1,4 +1,5 @@
 import {remove as removeDiacritics} from "diacritics";
+import {MINIOR_COLOURS} from "../constants";
 
 /* Non-export Helper functions */
 function roundNum(num, place) {
@@ -27,6 +28,22 @@ export function preprocessPokemonName(pokemon) {
   pokemonName = pokemonName.replace(removeChars, "");
   pokemonName = removeDiacritics(pokemonName);
 
+  // Nidoran special case
+  if (pokemonName.match(/^(nidoran-male|male-nidoran)$/)) {
+    pokemonName = "nidoran-m";
+  } else if (pokemonName.match(/^(nidoran-female|female-nidoran)$/)) {
+    pokemonName = "nidoran-f";
+  }
+
+  // Minior special case
+  var miniorPatternStr = `^(${MINIOR_COLOURS})-minior`;
+  var miniorPattern = new RegExp(miniorPatternStr);
+
+  if (pokemonName.match(miniorPattern)) {
+    var colour = pokemonName.match(MINIOR_COLOURS)[0];
+    pokemonName = `minior-${colour}`;
+  }
+
   return pokemonName;
 }
 export function capitalize(str) {
@@ -54,11 +71,14 @@ export function createSpriteUrl(pokemonName, pokedexNum) {
   if (urlName.match(/^minior.*meteor/)) {
     urlName = "minior-meteor";
   } else if (urlName.match(/^minior/)) {
-    var colourGroup = new RegExp(
-      /(blue|green|indigo|orange|red|violet|yellow)/
-    );
-    var colour = urlName.match(colourGroup)[0];
+    var colourPattern = new RegExp(`(${MINIOR_COLOURS})`);
+    var colour = urlName.match(colourPattern)[0];
     urlName = `minior-${colour}-core`;
+  }
+
+  // reformat name for mimikyu
+  if (urlName.match("^mimikyu")) {
+    urlName = "mimikyu";
   }
 
   var game =
