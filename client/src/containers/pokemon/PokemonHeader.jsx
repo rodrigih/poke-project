@@ -38,7 +38,7 @@ function displayName(props) {
 }
 
 const PokemonHeader = React.memo(props => {
-  const {spriteUrl, pokemonGenus, pokemonTypes} = props;
+  const {spriteUrl, pokemonGenus, pokemonTypes, pokedexNum} = props;
 
   const orderedTypes = pokemonTypes.slice();
   orderedTypes.sort(sortBySlot);
@@ -46,7 +46,7 @@ const PokemonHeader = React.memo(props => {
   return (
     <div className="flex pokemon-header">
       <div className="flex flex-column content-center">
-        <TopText>#132</TopText>
+        <TopText>#{pokedexNum}</TopText>
         <div className="sprite-container" style={{alignSelf: "center"}}>
           <img alt="Pokemon sprite" src={spriteUrl} />
         </div>

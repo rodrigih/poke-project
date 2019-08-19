@@ -12,7 +12,11 @@ import {
   getTypeByName,
   getResourceByUrl
 } from "../../helpers/pokemon-api";
-import {getEnglish, sortBySlot} from "../../helpers/utilities.js";
+import {
+  getEnglish,
+  sortBySlot,
+  createSpriteUrl
+} from "../../helpers/utilities.js";
 
 class PokemonInfo extends Component {
   constructor(props) {
@@ -207,15 +211,10 @@ class PokemonInfo extends Component {
     }
 
     // pokemonData destructuring
-    const {
-      name: pokemonName,
-      sprites: {front_default},
-      types,
-      stats
-    } = pokemonData;
+    const {name: pokemonName, types, stats} = pokemonData;
 
     // speciesData destructuring
-    const {genera, names} = speciesData;
+    const {genera, names, id: pokedexNum} = speciesData;
 
     const genus = getEnglish(genera).genus;
     const speciesName = getEnglish(names).name;
@@ -223,11 +222,12 @@ class PokemonInfo extends Component {
     return (
       <div>
         <PokemonHeader
-          spriteUrl={front_default}
+          spriteUrl={createSpriteUrl(pokemonName, pokedexNum)}
           pokemonName={pokemonName}
           speciesName={speciesName}
           pokemonGenus={genus}
           pokemonTypes={types}
+          pokedexNum={pokedexNum}
         />
         <PokemonGeneral pokemonData={pokemonData} speciesData={speciesData} />
         <PokemonAbilities abilityDataArr={abilityDataArr} />

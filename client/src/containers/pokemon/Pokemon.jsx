@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Route, withRouter} from "react-router-dom";
-import {remove as removeDiacritics} from "diacritics";
 import cx from "classnames";
 import {DEFAULT_QUERY} from "../../constants.js";
+import {preprocessPokemonName} from "../../helpers/utilities.js";
 
 import PokemonInfo from "./PokemonInfo";
 
@@ -38,26 +38,7 @@ class Pokemon extends Component {
     e.preventDefault();
     const pokemon = this.state.pokemonInput;
 
-    /* Preprocess inputs  */
-
-    var pokemonName = pokemon.toLowerCase().trim();
-    var removeChars = new RegExp(/\./);
-    var whiteSpace = new RegExp(/ +/);
-
-    // First rearrange order of "mega" and "alola"
-    pokemonName = pokemonName.replace(whiteSpace, " ");
-    pokemonName = pokemonName.replace("alolan", "alola");
-
-    var wordArr = pokemonName.split(" ");
-    if (wordArr[0] === "mega" || wordArr[0] === "alola") {
-      var newStart = wordArr.slice(0, 2).reverse();
-      wordArr = newStart.concat(wordArr.slice(2));
-    }
-
-    // Replace white spaces with dashes and remove special characters
-    pokemonName = wordArr.join("-");
-    pokemonName = pokemonName.replace(removeChars, "");
-    pokemonName = removeDiacritics(pokemonName);
+    var pokemonName = preprocessPokemonName(pokemon);
 
     // If pokemon has different forms, change query to a default
     pokemonName = DEFAULT_QUERY[pokemonName]

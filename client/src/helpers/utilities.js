@@ -1,7 +1,40 @@
+import {remove as removeDiacritics} from "diacritics";
+
 /* Non-export Helper functions */
 function roundNum(num, place) {
   var mult = Math.pow(10, place);
   return Math.round(num * mult) / mult;
+}
+
+/* String functions */
+export function preprocessPokemonName(pokemon) {
+  var pokemonName = pokemon.toLowerCase().trim();
+  var removeChars = new RegExp(/\./);
+  var whiteSpace = new RegExp(/ +/);
+
+  // First rearrange order of "mega" and "alola"
+  pokemonName = pokemonName.replace(whiteSpace, " ");
+  pokemonName = pokemonName.replace("alolan", "alola");
+
+  var wordArr = pokemonName.split(" ");
+  if (wordArr[0] === "mega" || wordArr[0] === "alola") {
+    var newStart = wordArr.slice(0, 2).reverse();
+    wordArr = newStart.concat(wordArr.slice(2));
+  }
+
+  // Replace white spaces with dashes and remove special characters
+  pokemonName = wordArr.join("-");
+  pokemonName = pokemonName.replace(removeChars, "");
+  pokemonName = removeDiacritics(pokemonName);
+
+  return pokemonName;
+}
+export function capitalize(str) {
+  if (str) {
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  return str;
 }
 
 /* Data functions */
@@ -11,13 +44,27 @@ export function getEnglish(dataArr) {
   return englishObj;
 }
 
-/* String functions */
-export function capitalize(str) {
-  if (str) {
-    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+export function createSpriteUrl(pokemonName, pokedexNum) {
+  const gen7_start = 722; // Start of gen 7 pokemon based on pokedex number
+
+  var urlName = preprocessPokemonName(pokemonName);
+  urlName = urlName.replace(/alola$/, "alolan");
+
+  // Reformat name for minior
+  if (urlName.match(/^minior.*meteor/)) {
+    urlName = "minior-meteor";
+  } else if (urlName.match(/^minior/)) {
+    var colourGroup = new RegExp(
+      /(blue|green|indigo|orange|red|violet|yellow)/
+    );
+    var colour = urlName.match(colourGroup)[0];
+    urlName = `minior-${colour}-core`;
   }
 
-  return str;
+  var game =
+    pokedexNum < gen7_start && !urlName.match("alolan?") ? "x-y" : "sun-moon";
+
+  return `https://img.pokemondb.net/sprites/${game}/normal/${urlName}.png`;
 }
 
 /* Conversion functions */

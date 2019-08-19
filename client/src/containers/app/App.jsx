@@ -64,8 +64,10 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Pok&eacute;API.
+            Pok&eacute;API
           </a>
+          . Pok&eacute;mon images and names &copy; 1995-2019 Nintendo/Game
+          Freak.
         </footer>
       </div>
     );

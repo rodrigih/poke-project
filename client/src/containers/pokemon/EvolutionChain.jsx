@@ -6,7 +6,7 @@ import {
   getPokemonByName,
   getPokemonSpeciesByName
 } from "../../helpers/pokemon-api";
-import {capitalize} from "../../helpers/utilities";
+import {capitalize, createSpriteUrl} from "../../helpers/utilities";
 
 const EvoArrow = styled.div`
   text-align: center;
@@ -61,7 +61,7 @@ class EvolutionChain extends PureComponent {
   getAllData(speciesName) {
     return getPokemonSpeciesByName(speciesName)
       .then(speciesData => {
-        const {varieties} = speciesData;
+        const {id: pokedexNum, varieties} = speciesData;
 
         // Remove Varieties from pikachu since they don't pertain to evolution
         var varietiesArr =
@@ -76,9 +76,12 @@ class EvolutionChain extends PureComponent {
 
             return getPokemonByName(pokemonName)
               .then(pokemonData => {
-                const {name, sprites} = pokemonData;
+                const {name} = pokemonData;
                 return new Promise((resolve, reject) =>
-                  resolve({name: name, sprites: sprites})
+                  resolve({
+                    name: name,
+                    sprite: createSpriteUrl(pokemonName, pokedexNum)
+                  })
                 );
               })
               .catch(this.handleError);
@@ -295,10 +298,7 @@ class EvolutionChain extends PureComponent {
       }
 
       var varietiesArr = varieties.map((variety, varietyInd) => {
-        const {
-          name,
-          sprites: {front_default: spriteUrl}
-        } = variety;
+        const {name, sprite} = variety;
 
         var imgDesc = `${name} sprite`;
 
@@ -326,7 +326,7 @@ class EvolutionChain extends PureComponent {
             {evoArrow}
             <EvoSprite>
               <Link to={`/pokemon/${name}`}>
-                <img alt={imgDesc} src={spriteUrl} />
+                <img alt={imgDesc} src={sprite} />
                 <p>{capitalize(name)}</p>
               </Link>
             </EvoSprite>
