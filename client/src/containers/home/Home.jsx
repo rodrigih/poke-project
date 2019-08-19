@@ -1,29 +1,49 @@
 import React from "react";
+import styled from "@emotion/styled";
+
+const Par = styled.div`
+  line-height: 2;
+`;
 
 function Home() {
   return (
     <div>
       <h2> About </h2>
 
-      <p>
-        Welcome to the pok&eacute;-app!
+      <Par>
+        Welcome to the Pok&eacute; App!
         <br />
         Find information about all things pok&eacute;mon, including moves,
-        berries, and items. This is currently a work in progress. More to come
-        soon.
-      </p>
+        berries, and items.
+        <br />
+        <span style={{fontWeight: "bold", fontStyle: "italic"}}>
+          Site under construction.
+        </span>
+      </Par>
 
       <h2> Credits </h2>
 
-      <p>
-        This site is only provides a front-end for the existing API,{" "}
+      <Par>
+        Pok&eacute;mon images and names are copyrighted by Nintendo/Game Freak.
+        <br />
+        Pokemon data and information gathered from{" "}
         <a href="https://pokeapi.co" target="_blank" rel="noopener noreferrer">
           Pok&eacute;API.
         </a>
-      </p>
+        <br />
+        Pokemon sprite images are gathered from{" "}
+        <a
+          href="https://pokemondb.net"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Pokemon Database
+        </a>
+        .
+      </Par>
 
       <h2> Source code </h2>
-      <p>
+      <Par>
         This project was made for educational purposes and is under the GNU
         General Public License.
         <br />
@@ -36,7 +56,7 @@ function Home() {
           here
         </a>
         .
-      </p>
+      </Par>
     </div>
   );
 }

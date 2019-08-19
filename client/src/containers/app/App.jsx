@@ -58,13 +58,21 @@ class App extends Component {
           >
             React
           </a>
-          . Uses the{" "}
+          . Uses{" "}
           <a
             href="https://pokeapi.co"
             target="_blank"
             rel="noopener noreferrer"
           >
             Pok&eacute;API
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://pokemondb.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Pokemon Database
           </a>
           . Pok&eacute;mon images and names &copy; 1995-2019 Nintendo/Game
           Freak.

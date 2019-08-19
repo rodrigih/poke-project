@@ -13,6 +13,10 @@ const TopText = styled.div`
   font-weight: bold;
 `;
 
+const Credit = styled.span`
+  font-size: 12px;
+`;
+
 function displayTypes(typeArr) {
   var pokeTypes = typeArr.map((curr, i) => (
     <PokeType key={`type-${i}`} type={curr.type.name} />
@@ -38,27 +42,53 @@ function displayName(props) {
 }
 
 const PokemonHeader = React.memo(props => {
-  const {spriteUrl, pokemonGenus, pokemonTypes, pokedexNum} = props;
+  const {
+    speciesName,
+    spriteUrl,
+    pokemonGenus,
+    pokemonTypes,
+    pokedexNum
+  } = props;
 
   const orderedTypes = pokemonTypes.slice();
   orderedTypes.sort(sortBySlot);
 
   return (
-    <div className="flex pokemon-header">
-      <div className="flex flex-column content-center">
-        <TopText>#{pokedexNum}</TopText>
-        <div className="sprite-container" style={{alignSelf: "center"}}>
-          <img alt="Pokemon sprite" src={spriteUrl} />
+    <div>
+      <div className="flex pokemon-header">
+        <div className="flex flex-column content-center">
+          <TopText>#{pokedexNum}</TopText>
+          <div className="sprite-container" style={{alignSelf: "center"}}>
+            <a
+              href={`https://pokemondb.net/sprites/${speciesName.toLowerCase()}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img alt="Pokemon sprite" src={spriteUrl} />
+            </a>
+          </div>
+
+          <div className="flex">{displayTypes(orderedTypes)}</div>
         </div>
 
-        <div className="flex">{displayTypes(orderedTypes)}</div>
+        <div className="flex flex-column pokemon-header-text">
+          <TopText> {displayName(props)} </TopText>
+          <Divider />
+          <div> {pokemonGenus} </div>
+        </div>
       </div>
 
-      <div className="flex flex-column pokemon-header-text">
-        <TopText> {displayName(props)} </TopText>
-        <Divider />
-        <div> {pokemonGenus} </div>
-      </div>
+      <Credit>
+        Sprites from{" "}
+        <a
+          href="https://pokemondb.net"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Pokemon Database
+        </a>
+        . Click on pokemon image for more sprites.
+      </Credit>
     </div>
   );
 });
