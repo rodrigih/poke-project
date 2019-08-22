@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 
 const ULFlex = styled.ul`
   display: flex;
+  font-size: calc(5px + 2vw);
 `;
 
 const LINKS = [
@@ -42,7 +43,7 @@ class NavLinks extends Component {
 
   render() {
     return (
-      <nav>
+      <nav style={{position: "sticky", top: 0}}>
         <ULFlex>{this.renderLinks()}</ULFlex>
       </nav>
     );

@@ -53,13 +53,21 @@ class Pokemon extends Component {
       match: {isExact}
     } = this.props;
 
+    var formStyle = {
+      padding: "1em 0",
+      position: "sticky",
+      top: "0",
+      zIndex: 2,
+      backgroundColor: "#eee"
+    };
+
     return (
       <div>
-        <p className={cx({hidden: !isExact})}>
+        <p className={cx({hidden: !isExact})} style={{marginBottom: 0}}>
           Enter a pok&eacute;mon name below.
         </p>
 
-        <form style={{marginTop: "1em"}} onSubmit={this.handleSubmit}>
+        <form style={formStyle} onSubmit={this.handleSubmit}>
           <label htmlFor="pokemon-input"> Go </label>
           <img
             id="pokeball-img"

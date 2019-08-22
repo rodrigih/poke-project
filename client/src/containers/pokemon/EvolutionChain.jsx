@@ -8,9 +8,25 @@ import {
 } from "../../helpers/pokemon-api";
 import {capitalize, createSpriteUrl} from "../../helpers/utilities";
 
+const EvoChainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
 const EvoArrow = styled.div`
   text-align: center;
   padding: 0 1em;
+`;
+
+const ImgContainer = styled.div`
+  @media only screen and (max-width: 600px) {
+    transform: rotate(90deg);
+  }
 `;
 
 const EvoNode = styled.div`
@@ -18,6 +34,9 @@ const EvoNode = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 1em;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const FlexColumnCenter = styled.div`
@@ -25,6 +44,9 @@ const FlexColumnCenter = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media only screen and (max-width: 600px) {
+    flex-direction: row;
+  }
 `;
 
 const EvoSprite = styled(FlexColumnCenter)`
@@ -304,10 +326,12 @@ class EvolutionChain extends PureComponent {
 
         var evoArrow = stage ? (
           <EvoArrow>
-            <img
-              alt="rightarrow"
-              src={require("../../assets/right_arrow.svg")}
-            />
+            <ImgContainer>
+              <img
+                alt="rightarrow"
+                src={require("../../assets/right_arrow.svg")}
+              />
+            </ImgContainer>
             {evolutionDetails.map(this.createEvolutionText).map((curr, ind) => {
               return (
                 <p key={"evoText-" + ind}>
@@ -326,7 +350,7 @@ class EvolutionChain extends PureComponent {
             {evoArrow}
             <EvoSprite>
               <Link to={`/pokemon/${name}`}>
-                <img alt={imgDesc} src={sprite} />
+                <img className="sprite" alt={imgDesc} src={sprite} />
                 <p>{capitalize(name)}</p>
               </Link>
             </EvoSprite>
@@ -361,9 +385,9 @@ class EvolutionChain extends PureComponent {
     // Has Evolutions
     if (evolutionTree.children && evolutionTree.children.length) {
       return (
-        <div className="flex content-center">
+        <EvoChainContainer>
           {this.renderColumn([evolutionTree], [])}
-        </div>
+        </EvoChainContainer>
       );
     }
 

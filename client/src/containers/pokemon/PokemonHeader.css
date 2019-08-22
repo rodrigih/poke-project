@@ -14,6 +14,13 @@
   font-size: calc(15px + 1vmin);
 }
 
+@media only screen and (max-width: 600px) {
+  .pokemon-header {
+    width: initial;
+    margin: 1em;
+  }
+}
+
 .pokemon-header-text {
   justify-content: space-around;
   flex-grow: 1;
@@ -24,11 +31,6 @@
   border: 2px solid black;
   border-radius: 1em;
   background-color: #eee;
-  min-width: 150px;
-  min-height: 150px;
-
-  max-width: 250px;
-  max-height: 250px;
 
   padding: 0.5em;
 
@@ -36,9 +38,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.sprite-container > img {
-  max-width: 100%;
-  height: auto;
 }

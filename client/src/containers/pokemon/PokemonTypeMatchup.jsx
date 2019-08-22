@@ -120,7 +120,7 @@ function renderMatchupColumns(props) {
   });
 
   return (
-    <div className="flex" style={{justifyContent: "center"}}>
+    <div className="flex" style={{justifyContent: "center", flexWrap: "wrap"}}>
       {columns}
     </div>
   );

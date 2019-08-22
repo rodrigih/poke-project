@@ -34,7 +34,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1> Pok&eacute;mon Info App </h1>
+          <h1> Pok&eacute; App </h1>
           <Route component={NavLinks} />
         </header>
 

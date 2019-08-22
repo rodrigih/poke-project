@@ -64,7 +64,7 @@ const PokemonHeader = React.memo(props => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img alt="Pokemon sprite" src={spriteUrl} />
+              <img className="sprite" alt="Pokemon sprite" src={spriteUrl} />
             </a>
           </div>
 

@@ -77,6 +77,11 @@ button:hover {
   visibility: hidden;
 }
 
+.sprite {
+  max-width: 100%;
+  height: auto;
+}
+
 #btn-go {
   margin-left: 1em;
   font-size: 16px;
